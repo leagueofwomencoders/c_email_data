@@ -15,18 +15,18 @@ from sqlalchemy.dialects.postgresql.base import INET, TSVECTOR
 from sqlalchemy.sql.expression import func, or_, not_, and_
 from sqlalchemy.orm import relationship
 
-class Persons(Base, db.Model):
+class Persons(Base):
     __tablename__ = 'persons'
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String(100),default=None)
 
-class Aliases(Base, db.Model):
+class Aliases(Base):
     __tablename__ = 'aliases'
     id = Column(Integer, primary_key=True, nullable=False)
     alias = Column(String(100),default=None)
     person_id = Column(Integer,ForeignKey(Persons.id), nullable=False,default=0)
 
-class Emails(Base, db.Model):
+class Emails(Base):
     __tablename__ = 'emails'
     id = Column(Integer, primary_key=True, nullable=False)
     doc_number = Column(String(100),default=None)
@@ -51,7 +51,7 @@ class Emails(Base, db.Model):
     extracted_body_text = Column(Text,default=None)
     raw_text = Column(Text,default=None)
 
-class EmailReceiverss(Base, db.Model):
+class EmailReceivers(Base):
     __tablename__ = 'email_receivers'
     id = Column(Integer, primary_key=True, nullable=False)
     email_id = Column(Integer,ForeignKey(Emails.id), nullable=False,default=0)
