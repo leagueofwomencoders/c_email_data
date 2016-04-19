@@ -1,3 +1,12 @@
+drop table if exists email_receivers;
+drop sequence if exists email_receivers_id_seq;
+
+drop table if exists emails;
+drop sequence if exists emails_id_seq;
+
+drop table if exists aliases;
+drop sequence if exists aliases_id_seq;
+
 drop table if exists persons;
 drop sequence if exists persons_id_seq;
 
@@ -18,9 +27,6 @@ ALTER SEQUENCE persons_id_seq OWNED BY persons.id;
 ALTER TABLE ONLY persons ALTER COLUMN id SET DEFAULT nextval('persons_id_seq'::regclass);
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-drop table if exists aliases;
-drop sequence if exists aliases_id_seq;
-
 CREATE TABLE aliases (
     id SERIAL NOT NULL,
     alias VARCHAR(100) DEFAULT NULL,
@@ -40,16 +46,13 @@ ALTER SEQUENCE aliases_id_seq OWNED BY aliases.id;
 ALTER TABLE ONLY aliases ALTER COLUMN id SET DEFAULT nextval('aliases_id_seq'::regclass);
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-drop table if exists emails;
-drop sequence if exists emails_id_seq;
-
 CREATE TABLE emails (
     id SERIAL NOT NULL,
     doc_number VARCHAR(100) DEFAULT NULL,
     metadata_subject VARCHAR(400) DEFAULT NULL,
     metadata_to VARCHAR(100) DEFAULT NULL,
     metadata_from VARCHAR(100) DEFAULT NULL,
-    sender_person_id INTEGER NOT NULL DEFAULT 0,
+    sender_person_id INTEGER DEFAULT NULL,
     metadata_date_sent TIMESTAMP DEFAULT NULL, -- Notice no time zone
     metadata_date_released TIMESTAMP DEFAULT NULL, -- Notice no time zone
     metadata_pdf_link VARCHAR(200) DEFAULT NULL,
@@ -82,9 +85,6 @@ ALTER SEQUENCE emails_id_seq OWNED BY emails.id;
 ALTER TABLE ONLY emails ALTER COLUMN id SET DEFAULT nextval('emails_id_seq'::regclass);
 
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-drop table if exists email_receivers;
-drop sequence if exists email_receivers_id_seq;
 
 CREATE TABLE email_receivers (
     id SERIAL NOT NULL,

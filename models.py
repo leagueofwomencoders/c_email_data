@@ -33,7 +33,7 @@ class Emails(Base):
     metadata_subject = Column(String(400),default=None)
     metadata_to = Column(String(100),default=None)
     metadata_from = Column(String(100),default=None)
-    sender_person_id = Column(Integer,ForeignKey(Persons.id), nullable=False,default=0)
+    sender_person_id = Column(Integer,ForeignKey(Persons.id), nullable=True,default=None)
     metadata_date_sent = Column(DateTime, nullable=True, default=None)
     metadata_date_released = Column(DateTime, nullable=True, default=None)
     metadata_pdf_link = Column(String(200),default=None)
